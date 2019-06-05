@@ -1,3 +1,7 @@
+// load environment variables 
+require('dotenv').config()
+
+// grab dependencies
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -6,17 +10,28 @@ const mongoose = require('mongoose');
 const todoRoutes = express.Router();
 const PORT = 4000;
 
+
+
 let Todo = require('./todo.model');
 
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/todos', { useNewUrlParser: true });
-const connection = mongoose.connection;
+// mongoose.connect('mongodb://127.0.0.1:27017/todos', { useNewUrlParser: true });
+// const connection = mongoose.connection;
 
-connection.once('open', function() {
-    console.log("MongoDB database connection established successfully");
-})
+// const CONNECT_STRING = require("../backend/connection.json").connectionString;
+// mongoose.connect(CONNECT_STRING);
+
+// mongoose.connect(
+//     process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist",
+//     { useNewUrlParser: true }
+//   );
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/todos");
+// connection.once('open', function() {
+//     console.log("MongoDB database connection established successfully");
+
 
 todoRoutes.route('/').get(function(req, res) {
     Todo.find(function(err, todos) {
