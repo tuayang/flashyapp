@@ -28,7 +28,11 @@ app.use(bodyParser.json());
 //     { useNewUrlParser: true }
 //   );
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/todos");
+mongoose.connect(
+    process.env.MONGODB_URI || "mongodb://localhost/todos",
+    { useNewUrlParser: true }
+);
+
 // connection.once('open', function() {
 //     console.log("MongoDB database connection established successfully");
 
